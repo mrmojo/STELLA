@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">STELLAGO</string>
+    <string name="go_deposit">DEPOSIT</string>
+    <string name="go_withdraw">WITHDRAW</string>
+    <string name="account_name">Account</string>
+    <string name="amount">Amount</string>
+    <string name="find_branch">Find Branch</string>
+    <string name="confirm">Confirm</string>
 </resources>

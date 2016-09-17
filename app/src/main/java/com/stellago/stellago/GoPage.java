@@ -6,22 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainPage extends AppCompatActivity {
+public class GoPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Intent intent = getIntent();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.activity_go_page);
 
-        Button goButton = (Button) findViewById(R.id.goButton);
+        Button depositButton = (Button) findViewById(R.id.depositButton);
 
-        goButton.setOnClickListener(new View.OnClickListener() {
+        depositButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent toGoPage = new Intent(getApplicationContext(), GoPage.class);
-                startActivity(toGoPage);
+                Intent toDepositPage = new Intent(getApplicationContext(), DepositPage.class);
+                startActivity(toDepositPage);
             }
         });
     }
