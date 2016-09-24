@@ -6,4 +6,5 @@
     <string name="amount">Amount</string>
     <string name="find_branch">Find Branch</string>
     <string name="confirm">Confirm</string>
+    <string name="title_activity_billmastvr">billmastvr</string>
 </resources>

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.billmastervr.billmastvr;
 
 public class MainPage extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
         Button goButton = (Button) findViewById(R.id.goButton);
-
+        Button vrButton = (Button) findViewById(R.id.VRbutton);
         goButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -24,5 +25,17 @@ public class MainPage extends AppCompatActivity {
                 startActivity(toGoPage);
             }
         });
+
+        vrButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent toVRMode = new Intent(getApplicationContext(), billmastvr.class);
+                startActivity(toVRMode);
+            }
+        });
+
+
+
     }
 }
