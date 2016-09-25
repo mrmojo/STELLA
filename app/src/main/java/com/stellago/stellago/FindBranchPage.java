@@ -229,6 +229,8 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
     public void addMarkers() {
         LatLng marker1 = new LatLng(14.4028298,121.0392663);
         mMap.addMarker(new MarkerOptions().position(marker1).title("Marker in SMB"));
+        LatLng marker2 = new LatLng(14.5567402,121.0234189);
+        mMap.addMarker(new MarkerOptions().position(marker2).title("Ayala Triangle"));
     }
 
     @Override
