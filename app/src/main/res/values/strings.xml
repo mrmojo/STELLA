@@ -7,4 +7,5 @@
     <string name="find_branch">Find Branch</string>
     <string name="confirm">Confirm</string>
     <string name="title_activity_billmastvr">billmastvr</string>
+    <string name="title_activity_find_branch_page">Map</string>
 </resources>
