@@ -8,4 +8,22 @@
     <string name="confirm">Confirm</string>
     <string name="title_activity_billmastvr">billmastvr</string>
     <string name="title_activity_find_branch_page">Map</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="action_register_short">Register</string>
+    <string name="error_email_existing">This email address is already registered</string>
+    <string name="error_register_account">Error registering the account</string>
+    <string name="success_register_account">Registered account</string>
 </resources>
