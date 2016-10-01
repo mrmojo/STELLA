@@ -55,8 +55,7 @@
             android:name=".FindBranchPage"
             android:label="@string/title_activity_find_branch_page" />
         <activity
-            android:name=".LoginPage"
-            android:label="@string/title_activity_login">
+            android:name=".LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
