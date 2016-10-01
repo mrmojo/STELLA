@@ -16,7 +16,6 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
         Button goButton = (Button) findViewById(R.id.goButton);
-        Button vrButton = (Button) findViewById(R.id.VRbutton);
         goButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -26,6 +25,7 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
+        Button vrButton = (Button) findViewById(R.id.VRButton);
         vrButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -35,7 +35,14 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
+        Button logoutButton = (Button) findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
 
-
+            @Override
+            public void onClick(View v) {
+                Intent toFirstPage = new Intent(getApplicationContext(), LoginRegisterPage.class);
+                startActivity(toFirstPage);
+            }
+        });
     }
 }

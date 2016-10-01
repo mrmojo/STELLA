@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,23 +8,49 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#ff6666"
     tools:context="com.stellago.stellago.GoPage">
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/go_deposit"
-        android:id="@+id/depositButton"
+        app:srcCompat="@drawable/cast_album_art_placeholder"
+        android:layout_marginTop="32dp"
+        android:id="@+id/imageView5"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="133dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
+        android:text="Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/go_withdraw"
-        android:id="@+id/withdrawButton"
+        android:id="@+id/backButton"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/orderChequeBookButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Cash Deposit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="115dp"
+        android:id="@+id/depositButton"
+        android:layout_below="@+id/imageView5"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Cheque Deposit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chequeDepositButton"
         android:layout_below="@+id/depositButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="81dp" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Order Cheque Book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/orderChequeBookButton"
+        android:layout_below="@+id/chequeDepositButton"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

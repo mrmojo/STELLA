@@ -14,13 +14,22 @@ public class GoPage extends AppCompatActivity {
         setContentView(R.layout.activity_go_page);
 
         Button depositButton = (Button) findViewById(R.id.depositButton);
-
         depositButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent toDepositPage = new Intent(getApplicationContext(), DepositPage.class);
                 startActivity(toDepositPage);
+            }
+        });
+
+        Button backButton = (Button) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent toMainPage = new Intent(getApplicationContext(), MainPage.class);
+                startActivity(toMainPage);
             }
         });
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,23 +8,42 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#ff6666"
     tools:context="com.stellago.stellago.MainPage">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VR"
-        android:id="@+id/VRbutton"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="133dp" />
+        android:text="A.B.L.E."
+        android:id="@+id/goButton"
+        android:layout_marginBottom="179dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
+        android:text="Bills Master VR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GO"
-        android:id="@+id/goButton"
-        android:layout_below="@+id/VRbutton"
+        android:layout_marginTop="71dp"
+        android:id="@+id/VRButton"
+        android:layout_alignTop="@+id/goButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:id="@+id/logoutButton"
+        android:layout_below="@+id/VRButton"
+        android:layout_alignStart="@+id/goButton" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/cast_album_art_placeholder"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="81dp" />
+        android:layout_marginTop="39dp"
+        android:id="@+id/imageView3" />
 </RelativeLayout>
