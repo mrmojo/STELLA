@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Mojo on 9/26/2016.
@@ -12,30 +14,84 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "ABLE.db";
-    public static final String TABLE_NAME = "T_USERS";
-    public static final String COL_1 = "ID";
-    public static final String COL_2 = "EMAIL";
-    public static final String COL_3 = "PASSWORD";
-    public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" +
-            COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            COL_2 + " TEXT," +
-            COL_3 + " TEXT" +
+    public static final String USERS_TABLE_NAME = "T_USERS";
+    public static final String USERS_COL_1 = "ID";
+    public static final String USERS_COL_2 = "EMAIL";
+    public static final String USERS_COL_3 = "PASSWORD";
+    public static final String USERS_TABLE_CREATE = "CREATE TABLE " + USERS_TABLE_NAME + " (" +
+            USERS_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            USERS_COL_2 + " TEXT," +
+            USERS_COL_3 + " TEXT" +
             ")";
+
+    public static final String TXN_TABLE_NAME = "T_TRANSACTIONS";
+    public static final String TXN_COL_1 = "ID";
+    public static final String TXN_COL_2 = "TYPE";
+    public static final String TXN_COL_3 = "BRANCH";
+    public static final String TXN_TABLE_CREATE = "CREATE TABLE " + TXN_TABLE_NAME + " (" +
+            TXN_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            TXN_COL_2 + " TEXT," +
+            TXN_COL_3 + " TEXT" +
+            ")";
+
+    public static final String BRANCH_TABLE_NAME = "T_BRANCHES";
+    public static final String BRANCH_COL_1 = "ID";
+    public static final String BRANCH_COL_2 = "Y_LATITUDE";
+    public static final String BRANCH_COL_3 = "X_LONGITUDE";
+    public static final String BRANCH_COL_4 = "NAME";
+    public static final String BRANCH_COL_5 = "WEIGHT";
+    public static final String BRANCH_TABLE_CREATE = "CREATE TABLE " + BRANCH_TABLE_NAME + " (" +
+            BRANCH_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            BRANCH_COL_2 + " REAL," +
+            BRANCH_COL_3 + " REAL," +
+            BRANCH_COL_4 + " TEXT," +
+            BRANCH_COL_5 + " INT" +
+            ")";
+
+    public static final String BILL_TABLE_NAME = "T_BILLS";
+    public static final String BILL_COL_1 = "ID";
+    public static final String BILL_COL_2 = "MERCHANT";
+    public static final String BILL_COL_3 = "AMOUNT";
+    public static final String BILL_COL_4 = "MONTH";
+    public static final String BILL_COL_5 = "STATUS";
+    public static final String BILL_TABLE_CREATE = "CREATE TABLE " + BILL_TABLE_NAME + " (" +
+            BILL_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            BILL_COL_2 + " TEXT," +
+            BILL_COL_3 + " REAL," +
+            BILL_COL_4 + " TEXT," +
+            BILL_COL_5 + " TEXT" +
+            ")";
+
     SQLiteDatabase db;
+    SQLiteDatabase newConn;
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 5);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
+        db.execSQL(USERS_TABLE_CREATE);
+        db.execSQL(TXN_TABLE_CREATE);
+        db.execSQL(BRANCH_TABLE_CREATE);
+        db.execSQL(BILL_TABLE_CREATE);
+        // Insert initial values if table is empty
+        if(isTableEmpty(db, BRANCH_TABLE_NAME, BRANCH_COL_1)) {
+            insertInitialMarkers(db);
+        }
+
         this.db = db;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
+        String query = "DROP TABLE IF EXISTS " + USERS_TABLE_NAME;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS " + TXN_TABLE_NAME;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS " + BRANCH_TABLE_NAME;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS " + BILL_TABLE_NAME;
         db.execSQL(query);
         this.onCreate(db);
     }
@@ -43,8 +99,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String searchPassword(String email) {
         db = this.getReadableDatabase();
         String query = "SELECT " +
-                COL_2 + ", " + COL_3 +
-                " FROM " + TABLE_NAME;
+                USERS_COL_2 + ", " + USERS_COL_3 +
+                " FROM " + USERS_TABLE_NAME;
         String password = null;
         Cursor cursor = db.rawQuery(query, null);
 
@@ -64,9 +120,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getReadableDatabase();
 
         String searchQuery = "SELECT " +
-                COL_2 +
-                " FROM " + TABLE_NAME +
-                " WHERE " + COL_2 + " = '" + email + "'";
+                USERS_COL_2 +
+                " FROM " + USERS_TABLE_NAME +
+                " WHERE " + USERS_COL_2 + " = '" + email + "'";
 
         Cursor cursor = db.rawQuery(searchQuery, null);
 
@@ -80,11 +136,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean registerAccount(String email, String password) {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_2, email);
-        values.put(COL_3, password);
+        values.put(USERS_COL_2, email);
+        values.put(USERS_COL_3, password);
 
-        long returnCode = db.insert(TABLE_NAME, null, values);
-        db.close();
+        long returnCode = db.insert(USERS_TABLE_NAME, null, values);
 
         if(returnCode > -1) {
             return true;
@@ -94,9 +149,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getAllData() {
+//    public void logData() {
+//        db = this.getReadableDatabase();
+//        Cursor result = db.rawQuery("SELECT * FROM " + BRANCH_TABLE_NAME, null);
+//        result.moveToFirst();
+//        do {
+//            Log.i("COLUMN1", String.valueOf(result.getInt(0)));
+//            Log.i("COLUMN2", String.valueOf(result.getDouble(1)));
+//            Log.i("COLUMN3", String.valueOf(result.getDouble(2)));
+//            Log.i("COLUMN4", result.getString(3));
+//            Log.i("COLUMN5", String.valueOf(result.getInt(4)));
+//        } while (result.moveToNext());
+//    }
+
+    public boolean isTableEmpty(SQLiteDatabase db, String tableName, String primaryKey) {
+        String query = "SELECT EXISTS(SELECT 1 FROM " +
+                tableName + " WHERE " +
+                primaryKey + " = 1)";
+        Cursor result = db.rawQuery(query,null);
+
+        result.moveToFirst();
+        if (result.getInt(0) == 0) {
+            // Table is empty
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void insertInitialMarkers(SQLiteDatabase db) {
+        ContentValues valuesSMB = new ContentValues();
+        ContentValues valuesAT = new ContentValues();
+        valuesSMB.put(BRANCH_COL_2, 14.4028298);
+        valuesSMB.put(BRANCH_COL_3, 121.0392663);
+        valuesSMB.put(BRANCH_COL_4, "Marker in SMB");
+        valuesSMB.put(BRANCH_COL_5, 10);
+
+        valuesAT.put(BRANCH_COL_2, 14.5567402);
+        valuesAT.put(BRANCH_COL_3, 121.0234189);
+        valuesAT.put(BRANCH_COL_4, "Ayala Triangle");
+        valuesAT.put(BRANCH_COL_5, 10);
+
+        db.insert(BRANCH_TABLE_NAME, null, valuesSMB);
+        db.insert(BRANCH_TABLE_NAME, null, valuesAT);
+    }
+
+    public Cursor getAllData(String tableName) {
         db = this.getReadableDatabase();
-        Cursor result = db.rawQuery("select * from " + TABLE_NAME, null);
+        Cursor result = db.rawQuery("SELECT * FROM " + tableName, null);
         return result;
     }
 }

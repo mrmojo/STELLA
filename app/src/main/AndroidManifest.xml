@@ -39,6 +39,9 @@
             android:name=".LoginPage"
             android:windowSoftInputMode="adjustPan"/>
         <activity
+            android:name=".RegisterPage"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
             android:name="com.billmastervr.billmastvr"
             android:screenOrientation="landscape" />
         <!--
