@@ -35,7 +35,9 @@
         <activity android:name=".MainPage" />
         <activity android:name=".GoPage" />
         <activity android:name=".DepositPage" />
-        <activity android:name=".LoginPage"/>
+        <activity
+            android:name=".LoginPage"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="com.billmastervr.billmastvr"
             android:screenOrientation="landscape" />

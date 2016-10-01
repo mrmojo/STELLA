@@ -100,26 +100,26 @@ public class LoginPage extends AppCompatActivity implements LoaderCallbacks<Curs
             }
         });
 
-        Button test = (Button) findViewById(R.id.button);
-        test.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Cursor res = helper.getAllData();
-                if(res.getCount() == 0) {
-                    showMessage("DB TABLE", "Empty");
-                    return;
-                }
-
-                StringBuffer buffer = new StringBuffer();
-                while (res.moveToNext()) {
-                    buffer.append("ID: " + res.getString(0) + "\n");
-                    buffer.append("EMAIL: " + res.getString(1) + "\n");
-                    buffer.append("PASSWORD: " + res.getString(2) + "\n\n");
-                }
-
-                showMessage("DB TABLE", buffer.toString());
-            }
-        });
+//        Button test = (Button) findViewById(R.id.button);
+//        test.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Cursor res = helper.getAllData();
+//                if(res.getCount() == 0) {
+//                    showMessage("DB TABLE", "Empty");
+//                    return;
+//                }
+//
+//                StringBuffer buffer = new StringBuffer();
+//                while (res.moveToNext()) {
+//                    buffer.append("ID: " + res.getString(0) + "\n");
+//                    buffer.append("EMAIL: " + res.getString(1) + "\n");
+//                    buffer.append("PASSWORD: " + res.getString(2) + "\n\n");
+//                }
+//
+//                showMessage("DB TABLE", buffer.toString());
+//            }
+//        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
