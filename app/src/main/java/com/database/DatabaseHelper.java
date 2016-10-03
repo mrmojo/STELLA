@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.billmastervr.Bill;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+
 /**
  * Created by Mojo on 9/26/2016.
  */
@@ -147,6 +152,89 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         }
 
+    }
+    // INSERT for Merchants
+    public boolean addMerchant(Bill billToInsert)
+    {
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(BILL_COL_2, billToInsert.getBillMerchant());
+        values.put(BILL_COL_3, billToInsert.getBillAmount());
+        values.put(BILL_COL_4, billToInsert.getBillMonth());
+        if(billToInsert.getBillStatus())
+        {
+            values.put(BILL_COL_5, "Y");
+        }else
+        {
+            values.put(BILL_COL_5, "N");
+        }
+        long returnCode = db.insert(BILL_TABLE_NAME, null, values);
+
+        if(returnCode > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //SELECT for All Bills for one Month
+    public ArrayList<Bill> selectBillsForCurrentMonth(String currentMonth, String billStatus)
+    {
+        db = this.getReadableDatabase();
+        ArrayList<Bill> retrievedBillList = new ArrayList<Bill>();
+        Boolean billStatusBool = true;
+        if(billStatus.equals("N")){
+            billStatusBool = false;
+        }
+        String searchQuery = "SELECT *" +
+                " FROM " + BILL_TABLE_NAME +
+                " WHERE " + BILL_COL_4 + " = '" + currentMonth + "'" +
+                " AND " + BILL_COL_5 + " = '" + billStatus + "'";
+
+        Log.d("One Month Search Query ",searchQuery);
+        Cursor cursor = db.rawQuery(searchQuery, null);
+
+        while(cursor.moveToNext())
+        {
+            Bill retrievedBill = new Bill(cursor.getString(1), cursor.getDouble(2), cursor.getString(3), billStatusBool);
+            Log.d("Merchant",cursor.getString(1));
+            Log.d("Amount",cursor.getString(2));
+            Log.d("Month",cursor.getString(3));
+            retrievedBillList.add(retrievedBill);
+        }
+
+        return retrievedBillList;
+    }
+
+    //SELECT for All Bills for multiple months
+    public ArrayList<Bill> selectBillsForDiffMonth(ArrayList<String> BillList, String billStatus)
+    {
+        db = this.getReadableDatabase();
+        ArrayList<Bill> retrievedBillList = new ArrayList<Bill>();
+        Boolean billStatusBool = true;
+        if(billStatus.equals("N")){
+            billStatusBool = false;
+        }
+
+        for (int i=0; i < BillList.size(); i++)
+        {
+            String searchQuery = "SELECT *" +
+                    " FROM " + BILL_TABLE_NAME +
+                    " WHERE " + BILL_COL_4 + " = '" + BillList.get(i) + "'" +
+                    " AND " + BILL_COL_5 + " = '" + billStatus + "'";
+            Cursor cursor = db.rawQuery(searchQuery, null);
+
+            while(cursor.moveToNext())
+            {
+                Bill retrievedBill = new Bill(cursor.getString(1), cursor.getDouble(2), cursor.getString(3), billStatusBool);
+                Log.d("Merchant",cursor.getString(1));
+                Log.d("Amount",cursor.getString(2));
+                Log.d("Month",cursor.getString(3));
+                retrievedBillList.add(retrievedBill);
+            }
+        }
+
+
+        return retrievedBillList;
     }
 
 //    public void logData() {

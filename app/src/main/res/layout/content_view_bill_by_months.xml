@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#d55151"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.billmastervr.viewBillByMonths"
+    tools:showIn="@layout/activity_view_bill_by_months">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/choose_month"
+        android:id="@+id/chooseMonthTextView" />
+
+    <!-- Starting Month-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="100dp"
+        android:id="@+id/vBillLinearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/from_month"
+            android:id="@+id/startingMonthTextView" />
+
+        <Spinner
+            android:id="@+id/vbill_Starting_Month_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/merchant_month_array"
+            android:prompt="@string/choose_month" />
+
+    </LinearLayout>
+    <!-- Ending Month-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vBillLinearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/vBillLinearLayout2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_month"
+            android:id="@+id/endingMonthTextView" />
+
+        <Spinner
+            android:id="@+id/vbill_Ending_Month_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/merchant_month_array"
+            android:prompt="@string/choose_month" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_below="@+id/vBillLinearLayout2"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/merchant_paid"
+        android:id="@+id/vbillStatusTextView" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vBillLinearLayout2"
+        android:layout_toRightOf="@+id/vbillStatusTextView"
+        android:layout_marginTop="40dp"
+        android:id="@+id/vbillStatus"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_bill"
+        android:id="@+id/vbill_View_Button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp" />
+
+</RelativeLayout>

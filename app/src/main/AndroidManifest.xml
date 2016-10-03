@@ -37,10 +37,10 @@
         <activity android:name=".DepositPage" />
         <activity
             android:name=".LoginPage"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".RegisterPage"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.billmastervr.billmastvr"
             android:screenOrientation="landscape" />
@@ -61,11 +61,24 @@
             android:label="@string/title_activity_find_branch_page" />
         <activity android:name=".LoginRegisterPage">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-            <category android:name="com.google.intent.category.CARDBOARD" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.billmastervr.BillMasterMain"
+            android:label="@string/title_activity_bill_master_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.billmastervr.addMerchantPage"
+            android:label="@string/title_activity_add_merchant_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.billmastervr.viewBillByMonths"
+            android:label="@string/title_activity_view_bill_by_months"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

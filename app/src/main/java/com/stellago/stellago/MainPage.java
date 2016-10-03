@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.billmastervr.BillMasterMain;
 import com.billmastervr.billmastvr;
 
 public class MainPage extends AppCompatActivity {
@@ -30,7 +32,7 @@ public class MainPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent toVRMode = new Intent(getApplicationContext(), billmastvr.class);
+                Intent toVRMode = new Intent(getApplicationContext(), BillMasterMain.class);
                 startActivity(toVRMode);
             }
         });
