@@ -62,4 +62,5 @@
     <string name="title_activity_bill_master_main">BillMasterMain</string>
     <string name="title_activity_add_merchant_page">addMerchantPage</string>
     <string name="title_activity_view_bill_by_months">viewBillByMonths</string>
+    <string name="title_activity_splash_page">SplashPage</string>
 </resources>
