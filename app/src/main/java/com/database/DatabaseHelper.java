@@ -74,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase newConn;
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 7);
+        super(context, DATABASE_NAME, null, 8);
     }
 
     @Override
@@ -322,7 +322,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(USERS_COL_2, "able@able");
         values.put(USERS_COL_3, "qwerty");
 
-        db.insert(BRANCH_TABLE_NAME, null, values);
+        db.insert(USERS_TABLE_NAME, null, values);
     }
 
     //SELECT for All Branches
