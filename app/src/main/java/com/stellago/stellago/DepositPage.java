@@ -3,39 +3,41 @@ package com.stellago.stellago;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.database.DatabaseHelper;
+
+import java.util.ArrayList;
+
 public class DepositPage extends AppCompatActivity {
+    private DatabaseHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit_page);
 
-        Spinner dropdown = (Spinner)findViewById(R.id.currency);
-        String[] items = new String[]{"USD", "PHP"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        helper = new DatabaseHelper(this);
+        Spinner dropdown = (Spinner)findViewById(R.id.monthForPaymentSpinner);
+        ArrayList<Branch> branchList = helper.selectAllBranch();
+        String [] branchNames = new String[branchList.size()];
+        for (int i = 0; i < branchList.size(); i++) {
+            branchNames[i] = branchList.get(i).getBranchName().concat(" Rate = ").concat(branchList.get(i).getBranchRateString());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, branchNames);
         dropdown.setAdapter(adapter);
 
-        Button findBranchButton = (Button) findViewById(R.id.findBranchButton);
-        findBranchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent toBranchPage = new Intent(getApplicationContext(), FindBranchPage.class);
-                startActivity(toBranchPage);
-            }
-        });
-
-        Button submitButton = (Button) findViewById(R.id.button2);
+        Button submitButton = (Button) findViewById(R.id.depositSubmitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent toConfirmationPage = new Intent(getApplicationContext(), ConfirmationPage.class);
-                startActivity(toConfirmationPage);
+                Intent toDepositPage = new Intent(getApplicationContext(), DepositPage.class);
+                startActivity(toDepositPage);
             }
         });
     }

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.billmastervr.Bill;
+import com.stellago.stellago.Branch;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase newConn;
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 5);
+        super(context, DATABASE_NAME, null, 6);
     }
 
     @Override
@@ -237,18 +238,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return retrievedBillList;
     }
 
-//    public void logData() {
-//        db = this.getReadableDatabase();
-//        Cursor result = db.rawQuery("SELECT * FROM " + BRANCH_TABLE_NAME, null);
-//        result.moveToFirst();
-//        do {
-//            Log.i("COLUMN1", String.valueOf(result.getInt(0)));
-//            Log.i("COLUMN2", String.valueOf(result.getDouble(1)));
-//            Log.i("COLUMN3", String.valueOf(result.getDouble(2)));
-//            Log.i("COLUMN4", result.getString(3));
-//            Log.i("COLUMN5", String.valueOf(result.getInt(4)));
-//        } while (result.moveToNext());
-//    }
+    public void logData() {
+        db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + BRANCH_TABLE_NAME, null);
+        result.moveToFirst();
+        do {
+            Log.i("COLUMN1", String.valueOf(result.getInt(0)));
+            Log.i("COLUMN2", String.valueOf(result.getDouble(1)));
+            Log.i("COLUMN3", String.valueOf(result.getDouble(2)));
+            Log.i("COLUMN4", result.getString(3));
+            Log.i("COLUMN5", String.valueOf(result.getInt(4)));
+        } while (result.moveToNext());
+    }
 
     public boolean isTableEmpty(SQLiteDatabase db, String tableName, String primaryKey) {
         String query = "SELECT EXISTS(SELECT 1 FROM " +
@@ -271,7 +272,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         valuesSMB.put(BRANCH_COL_2, 14.4028298);
         valuesSMB.put(BRANCH_COL_3, 121.0392663);
         valuesSMB.put(BRANCH_COL_4, "Marker in SMB");
-        valuesSMB.put(BRANCH_COL_5, 10);
+        valuesSMB.put(BRANCH_COL_5, 3);
 
         valuesAT.put(BRANCH_COL_2, 14.5567402);
         valuesAT.put(BRANCH_COL_3, 121.0234189);
@@ -280,6 +281,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(BRANCH_TABLE_NAME, null, valuesSMB);
         db.insert(BRANCH_TABLE_NAME, null, valuesAT);
+    }
+
+    //SELECT for All Branches
+    public ArrayList<Branch> selectAllBranch()
+    {
+        ArrayList<Branch> branchList = new ArrayList<Branch>();
+
+        Cursor cursor = getAllData(BRANCH_TABLE_NAME);
+        cursor.moveToFirst();
+        do {
+            Branch retrievedBranch = new Branch(cursor.getInt(0), cursor.getDouble(1), cursor.getDouble(2), cursor.getString(3), cursor.getInt(4));
+            branchList.add(retrievedBranch);
+        } while(cursor.moveToNext());
+
+        return branchList;
     }
 
     public Cursor getAllData(String tableName) {
