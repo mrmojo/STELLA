@@ -77,7 +77,7 @@ public class DepositPage extends AppCompatActivity implements OnMapReadyCallback
         branchList = helper.selectAllBranch();
         final Spinner dropdown = (Spinner)findViewById(R.id.monthForPaymentSpinner);
         List<Branch> branchList = helper.selectAllBranch();
-        ArrayAdapter<Branch> adapter = new ArrayAdapter<Branch>(this, android.R.layout.simple_spinner_dropdown_item, branchList);
+        ArrayAdapter<Branch> adapter = new ArrayAdapter<Branch>(this, R.layout.spinner_item, branchList);
         dropdown.setAdapter(adapter);
 
         final CheckBox nearest = (CheckBox) findViewById(R.id.nearbyCheckbox);
@@ -124,7 +124,7 @@ public class DepositPage extends AppCompatActivity implements OnMapReadyCallback
 
                 } else if (isNearestChecked) {
                     List<Branch> sortedByDistance = sortByDistance();
-                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sortedByDistance);
+                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), R.layout.spinner_item, sortedByDistance);
                     dropdown.setAdapter(adapterSorted);
                 }
             }
