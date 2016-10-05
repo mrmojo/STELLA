@@ -3,6 +3,8 @@ package com.billmastervr;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -47,9 +49,13 @@ public class BillMasterMain extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                //Bundle b = new Bundle();
 
+                Intent toTest = new Intent(getApplicationContext(), billmastvr.class);
                 ArrayList<Bill> retrievedBillList = new ArrayList<Bill>();
                 retrievedBillList = getBillsForCurrentMonth("Y");
+                toTest.putParcelableArrayListExtra("retrievedBillList",retrievedBillList);
+                startActivity(toTest);
 
             }
         });
@@ -59,9 +65,11 @@ public class BillMasterMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent toTest = new Intent(getApplicationContext(), billmastvr.class);
-                startActivity(toTest);
                 ArrayList<Bill> retrievedBillList = new ArrayList<Bill>();
                 retrievedBillList = getBillsForCurrentMonth("N");
+                toTest.putParcelableArrayListExtra("retrievedBillList",retrievedBillList);
+                startActivity(toTest);
+
             }
         });
         Button viewBillByMonths = (Button) findViewById(R.id.billByMonths);
@@ -96,5 +104,16 @@ public class BillMasterMain extends AppCompatActivity {
 
         return retrievedBillList;
     }
+  /*  // Creator
+    public static final Parcelable.Creator CREATOR
+            = new Parcelable.Creator() {
+        public Bill createFromParcel(Parcel in) {
+            return new Bill(in);
+        }
+
+        public Bill[] newArray(int size) {
+            return new Bill[size];
+        }
+    };*/
 
 }

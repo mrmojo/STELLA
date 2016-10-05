@@ -1,6 +1,22 @@
+/*
+ * Copyright 2014 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.billmastervr;
 
+//import com.billmastervr.GLText.GLText;
 import com.google.vr.sdk.audio.GvrAudioEngine;
 import com.google.vr.sdk.base.AndroidCompat;
 import com.google.vr.sdk.base.Eye;
@@ -11,6 +27,7 @@ import com.google.vr.sdk.base.Viewport;
 import com.stellago.stellago.R;
 
 import android.content.Context;
+import android.content.Intent;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.os.Bundle;
@@ -24,16 +41,25 @@ import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
-
+/**
+ * A Google VR sample application.
+ * </p><p>
+ * The TreasureHunt scene consists of a planar ground grid and a floating
+ * "treasure" cube. When the user looks at the cube, the cube will turn gold.
+ * While gold, the user can activate the Carboard trigger, which will in turn
+ * randomly reposition the cube.
+ */
 public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
 
     protected float[] modelCube;
+    protected float[] modelLabel;
     protected float[] modelPosition;
 
-    private static final String TAG = "billmastvr";
+    private static final String TAG = "TreasureHuntActivity";
 
     private static final float Z_NEAR = 0.1f;
     private static final float Z_FAR = 100.0f;
@@ -91,6 +117,7 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
     private float[] view;
     private float[] headView;
     private float[] modelViewProjection;
+    private float[] mvProjection;
     private float[] modelView;
     private float[] modelFloor;
 
@@ -104,6 +131,17 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
 
     private GvrAudioEngine gvrAudioEngine;
     private volatile int soundId = GvrAudioEngine.INVALID_ID;
+
+    private int[] vals={1400,1900,1800,2000,5000,3150,1440,2150,1200,1000,4000,4000,4000,4000,4000};
+    private String[] labels={"PLDT","BPI","GLOBE","NBS","Misys","PLDT","BPI","GLOBE","NBS","Misys","PLDT","BPI","GLOBE","NBS","Misys"};
+    //gltext changes
+    //private GLText glText;                             // A GLText Instance
+    private Context context;                           // Context (from Activity)
+
+    private int width = 100;                           // Updated to the Current Width + Height in onSurfaceChanged()
+    private int height = 100;
+
+    private ArrayList<Bill> dataList = new ArrayList<Bill>();
 
     /**
      * Converts a raw text file, saved as a resource, into an OpenGL ES shader.
@@ -157,12 +195,22 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent=getIntent();
+        Bundle data=intent.getExtras();
+
+        if(data!=null){
+            //this.dataList=(ArrayList<Bill>)data.getParcelable("retrievedBillList");
+            this.dataList=intent.getParcelableArrayListExtra("retrievedBillList");
+        }
+
         initializeGvrView();
 
         modelCube = new float[16];
+        modelLabel = new float[16];
         camera = new float[16];
         view = new float[16];
         modelViewProjection = new float[16];
+        mvProjection = new float[16];
         modelView = new float[16];
         modelFloor = new float[16];
         tempPosition = new float[4];
@@ -221,7 +269,11 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
 
     @Override
     public void onSurfaceChanged(int width, int height) {
+        //GLText code changes
+        this.width=width;
+        this.height=height;
         Log.i(TAG, "onSurfaceChanged");
+
     }
 
     /**
@@ -236,7 +288,6 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
     public void onSurfaceCreated(EGLConfig config) {
         Log.i(TAG, "onSurfaceCreated");
         GLES20.glClearColor(0.1f, 0.1f, 0.1f, 0.5f); // Dark background so text shows up well.
-
         ByteBuffer bbVertices = ByteBuffer.allocateDirect(WorldLayoutData.CUBE_COORDS.length * 4);
         bbVertices.order(ByteOrder.nativeOrder());
         cubeVertices = bbVertices.asFloatBuffer();
@@ -343,26 +394,54 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
                 })
                 .start();
 
-        updateModelPosition();
+        // Create the GLText
+        //glText = new GLText(this.getAssets());
+
+        // Load the font from file (set size + padding), creates the texture
+        // NOTE: after a successful call to this the font is ready for rendering!
+        //glText.load( "Futura-Heavy.ttf",8, 0,0 );  // Create Font (Height: 14 Pixels / X+Y Padding 2 Pixels)
+
+        // enable texture + alpha blending
+        //GLES20.glEnable(GLES20.GL_BLEND);
+        // GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+
+        //updateModelPosition();
+
 
         checkGLError("onSurfaceCreated");
     }
 
     /**
      * Updates the cube model position.
-     */
-    protected void updateModelPosition() {
+     *//*
+  protected void updateModelPosition() {
+    Matrix.setIdentityM(modelCube, 0);
+    Matrix.scaleM(modelCube,0,1,5,1);
+    Matrix.translateM(modelCube, 0, modelPosition[0], modelPosition[1], modelPosition[2]);
+
+
+    // Update the sound location to match it with the new cube position.
+    if (soundId != GvrAudioEngine.INVALID_ID) {
+      gvrAudioEngine.setSoundObjectPosition(
+          soundId, modelPosition[0], modelPosition[1], modelPosition[2]);
+    }
+    checkGLError("updateCubePosition");
+  }*/
+
+    protected void updateModelPosition(float x, float y, float z, float h) {
         Matrix.setIdentityM(modelCube, 0);
-        Matrix.translateM(modelCube, 0, modelPosition[0], modelPosition[1], modelPosition[2]);
+        Matrix.scaleM(modelCube,0,1,h,1);
+        Matrix.translateM(modelCube, 0, x, y, z);
+
+
 
         // Update the sound location to match it with the new cube position.
         if (soundId != GvrAudioEngine.INVALID_ID) {
             gvrAudioEngine.setSoundObjectPosition(
                     soundId, modelPosition[0], modelPosition[1], modelPosition[2]);
         }
-        checkGLError("updateCubePosition");
+        //checkGLError("updateCubePosition");
     }
-
     /**
      * Converts a raw text file into a string.
      *
@@ -393,7 +472,7 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
      */
     @Override
     public void onNewFrame(HeadTransform headTransform) {
-        setCubeRotation();
+        //setCubeRotation();
 
         // Build the camera matrix and apply it to the ModelView.
         Matrix.setLookAtM(camera, 0, 0.0f, 0.0f, CAMERA_Z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
@@ -407,7 +486,8 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
         // Regular update call to GVR audio engine.
         gvrAudioEngine.update();
 
-        checkGLError("onReadyToDraw");
+
+        //checkGLError("onReadyToDraw");
     }
 
     protected void setCubeRotation() {
@@ -424,7 +504,7 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
-        checkGLError("colorParam");
+        //checkGLError("colorParam");
 
         // Apply the eye transformation to the camera.
         Matrix.multiplyMM(view, 0, eye.getEyeView(), 0, camera, 0);
@@ -432,17 +512,105 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
         // Set the position of the light
         Matrix.multiplyMV(lightPosInEyeSpace, 0, view, 0, LIGHT_POS_IN_WORLD_SPACE, 0);
 
-        // Build the ModelView and ModelViewProjection matrices
-        // for calculating cube position and light.
         float[] perspective = eye.getPerspective(Z_NEAR, Z_FAR);
-        Matrix.multiplyMM(modelView, 0, view, 0, modelCube, 0);
+
+        //Matrix.setIdentityM(modelLabel,0);
+        //Matrix.multiplyMM(modelView, 0, view, 0, modelLabel, 0);
         Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
-        drawCube();
+        //Matrix.multiplyMM(mvProjection, 0, perspective, 0, modelView, 0);
+    /*glText.begin(1.0f, 1.0f, 1.0f, 1.0f, modelViewProjection);         // Begin Text Rendering (Set Color BLUE)
+    //glText.draw( "More Lines...", 50, 200 );        // Draw Test String
+    //glText.draw( "The End.", 50, 200 + glText.getCharHeight(), 180);  // Draw Test String
+    glText.setScale(0.8f,0.8f);
+    //glText.drawC(String.valueOf(vals[0]), 5.0f, 60, -35.0f,0,0,0);
+
+    glText.drawC(labels[0], 5.0f, 15, -35.0f,0,0,0);
+    glText.end();*/
+
+        //glText.draw("HELLO", -7, -5);
+        //glText.draw(labels[x], -7.0f, 1, -50.0f,0,0,0);
+        //  glText.end();                                  // End Text Rendering
+
+        float xPosition=0;
+        float xAxis=0;
+        float yAxis=0;
+        float zAxis=0;
+        float cubeHeight=0;
+        int colorShade=0;
+        for(int x=0;x<this.dataList.size();x++) {
+            Log.d("this datalist",String.valueOf(this.dataList.size()));
+            colorShade++;
+            colorShade=getCubeColor(colorShade);
+
+            if(x<5) {
+                xPosition = x;
+                zAxis=-20.0f;
+            }
+            if(x>=5&&x<10)
+                zAxis+=7.0f;
+            if(x>=10&&x<15)
+                xPosition-=1;
+            xAxis=-7.0f+7.0f*xPosition;
+            yAxis=1.0f;
+
+            cubeHeight=Math.round(this.dataList.get(x).getBillAmount()/200);
+            if(cubeHeight<1)
+                cubeHeight=1;
+
+            Matrix.multiplyMM(modelView, 0, view, 0, modelCube, 0);
+            Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
+
+
+            updateModelPosition(xAxis,  yAxis, zAxis,cubeHeight);
+            drawCube();
+            /*if(x==0){
+                Matrix.multiplyMM(mvProjection, 0, perspective, 0, modelView, 0);
+                glText.begin(1.0f, 1.0f, 1.0f, 1.0f, mvProjection);         // Begin Text Rendering (Set Color BLUE)
+                //glText.draw( "More Lines...", 50, 200 );        // Draw Test String
+                //glText.draw( "The End.", 50, 200 + glText.getCharHeight(), 180);  // Draw Test String
+                glText.setScale(0.8f,.10f);
+                glText.drawC(String.valueOf(vals[0]), xAxis, cubeHeight-2.8f, zAxis,0,0,0);
+
+                glText.drawC(labels[0], xAxis, yAxis-2.5f, zAxis,0,0,0);
+                glText.end();
+            }*/
+            //glText.draw(String.valueOf(vals[x]),xAxis,yAxis,zAxis,0,0,0);
+//gltext changes
+            //if(x==0) {
+       /*glText.begin(1.0f, 1.0f, 1.0f, 1.0f, modelViewProjection);         // Begin Text Rendering (Set Color BLUE)
+        //glText.draw( "More Lines...", 50, 200 );        // Draw Test String
+        //glText.draw( "The End.", 50, 200 + glText.getCharHeight(), 180);  // Draw Test String
+        glText.setScale(0.8f,0.8f);
+        //glText.drawC(String.valueOf(vals[0]), 5.0f, 60, -35.0f,0,0,0);
+
+        glText.drawC(labels[0], 5.0f, 15, -35.0f,0,0,0);
+        glText.end();*/
+
+            //}
+
+        }
+   /* Matrix.multiplyMM(modelView, 0, view, 0, modelCube, 0);
+    Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
+    updateModelPosition(5,2,3);
+    drawCube();*/
 
         // Set modelView for the floor, so we draw floor in the correct location
         Matrix.multiplyMM(modelView, 0, view, 0, modelFloor, 0);
         Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
         drawFloor();
+
+
+
+        //Matrix.multiplyMM(modelView, 0, view, 0, modelFloor, 0);
+  /*  Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
+    glText.begin(1.0f, 1.0f, 1.0f, 1.0f, modelViewProjection);         // Begin Text Rendering (Set Color BLUE)
+    //glText.draw( "More Lines...", 50, 200 );        // Draw Test String
+    //glText.draw( "The End.", 50, 200 + glText.getCharHeight(), 180);  // Draw Test String
+    glText.setScale(0.8f,0.8f);
+    //glText.drawC(String.valueOf(vals[0]), 5.0f, 60, -35.0f,0,0,0);
+
+    glText.drawC(labels[0], 5.0f, 15, -35.0f,0,0,0);*/
+
     }
 
     @Override
@@ -482,6 +650,7 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
         GLES20.glEnableVertexAttribArray(cubeColorParam);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 36);
+
         checkGLError("Drawing cube");
     }
 
@@ -493,6 +662,8 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
      * look strange.
      */
     public void drawFloor() {
+
+
         GLES20.glUseProgram(floorProgram);
 
         // Set ModelView, MVP, position, normals, and color.
@@ -511,7 +682,7 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 24);
 
-        checkGLError("drawing floor");
+        //checkGLError("drawing floor");
     }
 
     /**
@@ -553,11 +724,11 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
         angleY = (float) Math.toRadians(angleY);
         float newY = (float) Math.tan(angleY) * objectDistance;
 
-        modelPosition[0] = posVec[0];
-        modelPosition[1] = newY;
-        modelPosition[2] = posVec[2];
+        modelPosition[0] = 10f;
+        modelPosition[1] = 0;
+        modelPosition[2] = 2f;
 
-        updateModelPosition();
+        //updateModelPosition();
     }
 
     /**
@@ -574,5 +745,32 @@ public class billmastvr extends GvrActivity implements GvrView.StereoRenderer {
         float yaw = (float) Math.atan2(tempPosition[0], -tempPosition[2]);
 
         return Math.abs(pitch) < PITCH_LIMIT && Math.abs(yaw) < YAW_LIMIT;
+    }
+
+    public void drawText(){
+
+    }
+
+    public int getCubeColor(int colorShade){
+        if(colorShade==1)
+        {
+            cubeColors.clear();
+            cubeColors.put(WorldLayoutData.CUBE_COLORS_1);
+            cubeColors.position(0);
+        }
+        else if(colorShade==2)
+        {
+            cubeColors.clear();
+            cubeColors.put(WorldLayoutData.CUBE_COLORS_2);
+            cubeColors.position(0);
+        }
+        else if(colorShade==3)
+        {
+            cubeColors.clear();
+            cubeColors.put(WorldLayoutData.CUBE_COLORS_3);
+            cubeColors.position(0);
+            colorShade=0;
+        }
+        return colorShade;
     }
 }

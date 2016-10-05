@@ -76,7 +76,7 @@ public class OrderChequeBookPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent toConfirmationPage = new Intent(getApplicationContext(), ConfirmationPage.class);
-//                submitSoapForOrderChequeBook();
+                submitSoapForOrderChequeBook();
                 int currId = helper.getLastTransactionKey();
                 String accountId = AccountIDText.getText().toString();
                 String reservationId = accountId;
@@ -325,15 +325,15 @@ public class OrderChequeBookPage extends AppCompatActivity {
             ChqBookReq.appendChild(CustomerId);
 
             Element AccountID = doc.createElement("dc:AccountID");
-            AccountID.appendChild(doc.createTextNode(AccountIDText.getText().toString()));
+            AccountID.appendChild(doc.createTextNode(AccountIDText.getText().toString())); //01CO0CUST0109
             ChqBookReq.appendChild(AccountID);
 
             Element ChequeBookType = doc.createElement("dc:ChequeBookType");
-            ChequeBookType.appendChild(doc.createTextNode(chqBookTyp.getSelectedItem().toString()));
+            ChequeBookType.appendChild(doc.createTextNode(chqBookTyp.getSelectedItem().toString())); //22
             ChqBookReq.appendChild(ChequeBookType);
 
             Element NumberOfLeaves = doc.createElement("dc:NumberOfLeaves");
-            NumberOfLeaves.appendChild(doc.createTextNode(noOfLeavesText.getText().toString()));
+            NumberOfLeaves.appendChild(doc.createTextNode(noOfLeavesText.getText().toString())); //20
             ChqBookReq.appendChild(NumberOfLeaves);
 
             Element CollectAtBranch = doc.createElement("dc:CollectAtBranch");
