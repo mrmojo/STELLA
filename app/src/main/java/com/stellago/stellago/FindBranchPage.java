@@ -55,14 +55,18 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    Double branchLatitude = 0.0;
+    Double branchLongitude = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         Bundle data = intent.getExtras();
         if (data != null) {
-            String branchId = data.getString("branchId");
+            branchLatitude = data.getDouble("latitude");
+            branchLongitude = data.getDouble("longitude");
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_branch_page);
 
@@ -73,6 +77,7 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
 
@@ -89,7 +94,7 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        addMarkers();
+//        addMarkers();
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -160,6 +165,19 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
+
+        LatLng origin = mCurrLocationMarker.getPosition();
+        LatLng destination = new LatLng(branchLatitude,branchLongitude);
+
+        // Getting URL to the Google Directions API
+        String url = getUrl(origin, destination);
+        FetchUrl FetchUrl = new FetchUrl();
+
+        // Start downloading json data from Google Directions API
+        FetchUrl.execute(url);
+        //move map camera
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(19));
 
     }
 
