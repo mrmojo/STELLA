@@ -46,12 +46,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String BRANCH_COL_3 = "X_LONGITUDE";
     public static final String BRANCH_COL_4 = "NAME";
     public static final String BRANCH_COL_5 = "WEIGHT";
+    public static final String BRANCH_COL_6 = "RATINGS";
     public static final String BRANCH_TABLE_CREATE = "CREATE TABLE " + BRANCH_TABLE_NAME + " (" +
             BRANCH_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             BRANCH_COL_2 + " REAL," +
             BRANCH_COL_3 + " REAL," +
             BRANCH_COL_4 + " TEXT," +
             BRANCH_COL_5 + " INT" +
+            BRANCH_COL_6 + " REAL" +
             ")";
 
     public static final String BILL_TABLE_NAME = "T_BILLS";
@@ -72,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase newConn;
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 6);
+        super(context, DATABASE_NAME, null, 7);
     }
 
     @Override
@@ -84,6 +86,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Insert initial values if table is empty
         if(isTableEmpty(db, BRANCH_TABLE_NAME, BRANCH_COL_1)) {
             insertInitialMarkers(db);
+        }
+
+        if(isTableEmpty(db, USERS_TABLE_NAME, USERS_COL_1)) {
+            insertInitialUsers(db);
         }
 
         this.db = db;
@@ -269,18 +275,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertInitialMarkers(SQLiteDatabase db) {
         ContentValues valuesSMB = new ContentValues();
         ContentValues valuesAT = new ContentValues();
+        ContentValues valuesPS = new ContentValues();
+        ContentValues valuesPL = new ContentValues();
+        ContentValues valuesMS = new ContentValues();
+
         valuesSMB.put(BRANCH_COL_2, 14.4028298);
         valuesSMB.put(BRANCH_COL_3, 121.0392663);
-        valuesSMB.put(BRANCH_COL_4, "Marker in SMB");
+        valuesSMB.put(BRANCH_COL_4, "SMB Branch");
         valuesSMB.put(BRANCH_COL_5, 3);
+        valuesSMB.put(BRANCH_COL_6, 3.1);
 
         valuesAT.put(BRANCH_COL_2, 14.5567402);
         valuesAT.put(BRANCH_COL_3, 121.0234189);
-        valuesAT.put(BRANCH_COL_4, "Ayala Triangle");
-        valuesAT.put(BRANCH_COL_5, 10);
+        valuesAT.put(BRANCH_COL_4, "Ayala Triangle Branch");
+        valuesAT.put(BRANCH_COL_5, 5);
+        valuesAT.put(BRANCH_COL_6, 4.2);
+
+        valuesPS.put(BRANCH_COL_2, 14.5572704);
+        valuesPS.put(BRANCH_COL_3, 121.027765);
+        valuesPS.put(BRANCH_COL_4, "Pacific Star Branch");
+        valuesPS.put(BRANCH_COL_5, 7);
+        valuesPS.put(BRANCH_COL_6, 3.5);
+
+        valuesPL.put(BRANCH_COL_2, 14.5575202);
+        valuesPL.put(BRANCH_COL_3, 121.0198546);
+        valuesPL.put(BRANCH_COL_4, "Philam Life Branch");
+        valuesPL.put(BRANCH_COL_5, 9);
+        valuesPL.put(BRANCH_COL_6, 3.8);
+
+        valuesMS.put(BRANCH_COL_2, 14.555921);
+        valuesMS.put(BRANCH_COL_3, 121.0256589);
+        valuesMS.put(BRANCH_COL_4, "Makati Shangri-La Branch");
+        valuesMS.put(BRANCH_COL_5, 10);
+        valuesMS.put(BRANCH_COL_6, 4.9);
 
         db.insert(BRANCH_TABLE_NAME, null, valuesSMB);
         db.insert(BRANCH_TABLE_NAME, null, valuesAT);
+        db.insert(BRANCH_TABLE_NAME, null, valuesPS);
+        db.insert(BRANCH_TABLE_NAME, null, valuesPL);
+        db.insert(BRANCH_TABLE_NAME, null, valuesMS);
+    }
+
+    public void insertInitialUsers(SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        values.put(USERS_COL_2, "able@able");
+        values.put(USERS_COL_3, "qwerty");
+
+        db.insert(BRANCH_TABLE_NAME, null, values);
     }
 
     //SELECT for All Branches
