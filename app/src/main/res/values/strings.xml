@@ -2,10 +2,11 @@
     <string name="app_name">A.B.L.E</string>
     <string name="go_deposit">DEPOSIT</string>
     <string name="go_withdraw">WITHDRAW</string>
-    <string name="account_name">Account</string>
-    <string name="amount">Amount</string>
+    <string name="account_name">Account: </string>
+    <string name="amount">Amount: </string>
     <string name="find_branch">Find Branch</string>
     <string name="confirm">Confirm</string>
+    <string name="submit">Submit</string>
     <string name="title_activity_billmastvr">billmastvr</string>
     <string name="title_activity_find_branch_page">Map</string>
     <string name="title_activity_login">Sign in</string>
@@ -63,4 +64,8 @@
     <string name="title_activity_add_merchant_page">addMerchantPage</string>
     <string name="title_activity_view_bill_by_months">viewBillByMonths</string>
     <string name="title_activity_splash_page">SplashPage</string>
+    <string name="branch_choice_pref">Branch Choice Preference</string>
+    <string name="branch_nearby">Nearby?</string>
+    <string name="branch_safest">Safest?</string>
+    <string name="branch">Branch: </string>
 </resources>

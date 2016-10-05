@@ -21,4 +21,18 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.Background">
+        <item name="android:background">#d55151</item>
+    </style>
+    <style name="AppTheme.Button">
+        <item name="android:background">#636265</item>
+    </style>
+    <style name="AppTheme.SubmitButton">
+        <item name="android:background">#accb12</item>
+    </style>
+    <style name="AppTheme.Text">
+        <item name="android:fontFamily">roboto</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
