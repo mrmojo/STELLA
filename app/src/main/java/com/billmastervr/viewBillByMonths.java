@@ -32,7 +32,7 @@ public class viewBillByMonths extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_bill_by_months);
-
+        helper = new DatabaseHelper(this);
         startingMonthSpinner = (Spinner) findViewById(R.id.vbill_Starting_Month_spinner);
         endingMonthSpinner = (Spinner) findViewById(R.id.vbill_Ending_Month_spinner);
         vBillstatus = (CheckBox) findViewById(R.id.vbillStatus);

@@ -22,11 +22,20 @@ public class DepositPage extends AppCompatActivity {
 
         Button findBranchButton = (Button) findViewById(R.id.findBranchButton);
         findBranchButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent toBranchPage = new Intent(getApplicationContext(), FindBranchPage.class);
                 startActivity(toBranchPage);
+            }
+        });
+
+        Button submitButton = (Button) findViewById(R.id.button2);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent toConfirmationPage = new Intent(getApplicationContext(), ConfirmationPage.class);
+                startActivity(toConfirmationPage);
             }
         });
     }

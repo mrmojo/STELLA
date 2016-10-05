@@ -58,7 +58,8 @@ public class BillMasterMain extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
+                Intent toTest = new Intent(getApplicationContext(), billmastvr.class);
+                startActivity(toTest);
                 ArrayList<Bill> retrievedBillList = new ArrayList<Bill>();
                 retrievedBillList = getBillsForCurrentMonth("N");
             }

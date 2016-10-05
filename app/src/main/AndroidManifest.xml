@@ -59,12 +59,12 @@
         <activity
             android:name=".FindBranchPage"
             android:label="@string/title_activity_find_branch_page" />
-
         <activity
             android:name=".SplashPage"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
@@ -86,7 +86,7 @@
             android:name="com.billmastervr.viewBillByMonths"
             android:label="@string/title_activity_view_bill_by_months"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity android:name=".ConfirmationPage"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.stellago.stellago;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.database.DatabaseHelper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -48,6 +50,7 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
         GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
+    private DatabaseHelper helper;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
@@ -55,6 +58,11 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        Bundle data = intent.getExtras();
+        if (data != null) {
+            String branchId = data.getString("branchId");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_branch_page);
 
