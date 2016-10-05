@@ -26,6 +26,9 @@
     </style>
     <style name="AppTheme.Button">
         <item name="android:background">#636265</item>
+        <item name="android:fontFamily">roboto</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:layout_width">153dp</item>
     </style>
     <style name="AppTheme.SubmitButton">
         <item name="android:background">#accb12</item>
@@ -34,5 +37,9 @@
         <item name="android:fontFamily">roboto</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme.EditText">
+        <item name="android:background">@drawable/rounded_edittext</item>
+        <item name="android:textAlignment">center</item>
     </style>
 </resources>

@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">A.B.L.E</string>
+    <string name="bill_master_vr">Bill Master VR</string>
     <string name="go_deposit">DEPOSIT</string>
     <string name="go_withdraw">WITHDRAW</string>
-    <string name="account_name">Account: </string>
-    <string name="amount">Amount: </string>
     <string name="find_branch">Find Branch</string>
+    <string name="logout">Logout</string>
     <string name="confirm">Confirm</string>
     <string name="submit">Submit</string>
     <string name="title_activity_billmastvr">billmastvr</string>
@@ -12,10 +12,10 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to BillMaster Screens -->
-    <string name="merchant_name">Merchant</string>
+    <string name="merchant_name">Merchant: </string>
     <string name="merchant_submit">Submit</string>
     <string name="merchant_paid">Already Paid?</string>
-    <string name="merchant_month">Month</string>
+    <string name="merchant_month">Month: </string>
     <string name="merchant_month_prompt">Choose a Month</string>
     <string-array name="merchant_currency">
         <item>USD</item>
@@ -40,13 +40,15 @@
     </string-array>
     <string name="success_merchant_addition">Merchant Addition Successful</string>
     <string name="choose_month">Choose Month/s</string>
-    <string name="from_month">From</string>
-    <string name="to_month">To</string>
-    <string name="view_bill">VIEW</string>
+    <string name="from_month">From: </string>
+    <string name="to_month">To: </string>
+    <string name="view_bill">View</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="prompt_email">Enter Email</string>
+    <string name="prompt_password">Enter Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -64,8 +66,27 @@
     <string name="title_activity_add_merchant_page">addMerchantPage</string>
     <string name="title_activity_view_bill_by_months">viewBillByMonths</string>
     <string name="title_activity_splash_page">SplashPage</string>
+
+
+    <string name="cash_deposit">Cash Deposit</string>
+    <string name="cheque_deposit">Cheque Deposit</string>
+    <string name="order_cheque_book">Order Cheque Book</string>
+    <string name="back">Back</string>
+
+    <string name="add_merchant">Add Merchant</string>
+    <string name="view_paid_bills">View Paid Bills for this Month</string>
+    <string name="view_unpaid_bills">View Unpaid Bills for this Month</string>
+    <string name="view_bills_by_month">View Bills by Month/s</string>
+
+    <string name="account_name">Account No: </string>
+    <string name="amount">Amount: </string>
+    <string name="enter_merchant">Enter merchant name</string>
+    <string name="enter_amount">Enter amount</string>
     <string name="branch_choice_pref">Branch Choice Preference</string>
     <string name="branch_nearby">Nearby?</string>
     <string name="branch_safest">Safest?</string>
     <string name="branch">Branch: </string>
+
+    <string name="check_directions">Check Directions</string>
+
 </resources>

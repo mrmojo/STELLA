@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme.Background"
     android:id="@+id/activity_login_register_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +10,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#ff6666"
     tools:context="com.stellago.stellago.LoginRegisterPage">
 
     <ImageView
@@ -17,25 +17,29 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/cast_album_art_placeholder"
         android:id="@+id/imageView"
-        android:layout_marginTop="32dp"
         android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="@style/AppTheme.Button"
+        android:text="@string/action_sign_in_short"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/toLogin"
+        android:focusableInTouchMode="false"
+        android:layout_marginTop="143dp"
+        android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Login"
+        style="@style/AppTheme.Button"
+        android:text="@string/action_register_short"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="124dp"
-        android:id="@+id/toLogin" />
-
-    <Button
-        android:text="Register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/toRegister"
+        android:layout_marginTop="42dp"
         android:layout_below="@+id/toLogin"
-        android:layout_alignEnd="@+id/toLogin"
-        android:layout_marginTop="37dp"
-        android:id="@+id/toRegister" />
+        android:layout_alignStart="@+id/toLogin" />
 </RelativeLayout>

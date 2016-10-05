@@ -2,19 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme.Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#d55151"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.billmastervr.viewBillByMonths"
     tools:showIn="@layout/activity_view_bill_by_months">
 
-
     <TextView
+        style="@style/AppTheme.Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -31,7 +31,8 @@
         android:id="@+id/vBillLinearLayout">
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/AppTheme.Text"
+            android:layout_width="99dp"
             android:layout_height="wrap_content"
             android:text="@string/from_month"
             android:id="@+id/startingMonthTextView" />
@@ -49,13 +50,14 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:id="@+id/vBillLinearLayout2"
         android:layout_below="@+id/vBillLinearLayout"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp"
-        android:id="@+id/vBillLinearLayout2">
+        android:layout_alignParentStart="true">
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/AppTheme.Text"
+            android:layout_width="99dp"
             android:layout_height="wrap_content"
             android:text="@string/to_month"
             android:id="@+id/endingMonthTextView" />
@@ -70,6 +72,7 @@
     </LinearLayout>
 
     <TextView
+        style="@style/AppTheme.Text"
         android:layout_below="@+id/vBillLinearLayout2"
         android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
@@ -87,12 +90,13 @@
         />
 
     <Button
+        style="@style/AppTheme.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/view_bill"
         android:id="@+id/vbill_View_Button"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/vbillStatus"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="35dp" />
+        android:layout_marginTop="74dp" />
 
 </RelativeLayout>
