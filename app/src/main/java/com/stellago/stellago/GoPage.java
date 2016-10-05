@@ -23,6 +23,17 @@ public class GoPage extends AppCompatActivity {
             }
         });
 
+        Button orderChequeButton = (Button) findViewById(R.id.orderChequeBookButton);
+        orderChequeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent toOrderChequeButton = new Intent(getApplicationContext(), OrderChequeBookPage.class);
+                startActivity(toOrderChequeButton);
+            }
+        });
+
+
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
 

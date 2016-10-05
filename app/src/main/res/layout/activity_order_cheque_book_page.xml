@@ -32,7 +32,6 @@
             style="@style/AppTheme.EditText"
             android:layout_width="205dp"
             android:layout_height="27dp"
-            android:inputType="number"
             android:id="@+id/accountIDEditText"
             android:hint="@string/enter_account_id"
             android:singleLine="true" />
