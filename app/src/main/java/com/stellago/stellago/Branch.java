@@ -78,7 +78,7 @@ public class Branch implements Parcelable {
 
     @Override
     public String toString() {
-        return this.branchName.concat(" Rate = ").concat(Double.toString(getBranchRateAverage())); // Value to be displayed in the Spinner
+        return this.branchName.concat(". Rating = ").concat(Double.toString(getBranchRateAverage())); // Value to be displayed in the Spinner
     }
 
     @Override

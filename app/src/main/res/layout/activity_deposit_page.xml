@@ -125,8 +125,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/monthForPaymentSpinner"
         android:layout_alignTop="@+id/branchTextView"
-        android:layout_alignEnd="@+id/linearLayout2"
-        android:layout_toEndOf="@+id/nearbyTextView" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/nearbyCheckbox" />
 
     <Button
         style="@style/AppTheme.SubmitButton"
