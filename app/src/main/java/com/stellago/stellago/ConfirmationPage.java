@@ -1,5 +1,6 @@
 package com.stellago.stellago;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class ConfirmationPage extends AppCompatActivity {
 
@@ -17,12 +19,19 @@ public class ConfirmationPage extends AppCompatActivity {
         setContentView(R.layout.activity_confirmation_page);
         Intent intent = getIntent();
         final Branch details = intent.getExtras().getParcelable("branchDetails");
+        TextView message = (TextView)findViewById(R.id.notificationMessage);
+        message.setText("Your reservation id is " + intent.getExtras().getString("reservationId"));
+
         final NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
-        Intent resultIntent = new Intent(getApplicationContext(), ConfirmationPage.class);
+                        .setContentTitle("Reservation ID")
+                        .setContentText("Your reservation id is " + intent.getExtras().getString("reservationId"))
+                        .setPriority(Notification.PRIORITY_MAX)
+                        .setDefaults(Notification.DEFAULT_ALL);
+        Intent resultIntent = new Intent(this, ConfirmationPage.class);
+        resultIntent.putExtra("branchDetails", details);
+        resultIntent.putExtra("reservationId", intent.getExtras().getString("reservationId"));
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         this,

@@ -148,7 +148,8 @@
         android:id="@+id/monthForPaymentChequeBookSpinner"
         android:layout_alignTop="@+id/branchChequeBookTextView"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/nearbyChequeBookCheckbox" />
+        android:layout_alignStart="@+id/nearbyChequeBookCheckbox"
+        android:background="@drawable/rounded_edittext" />
 
     <Button
         style="@style/AppTheme.SubmitButton"

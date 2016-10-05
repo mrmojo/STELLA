@@ -345,4 +345,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery("SELECT * FROM " + tableName, null);
         return result;
     }
+
+    public int getLastTransactionKey() {
+        db = this.getReadableDatabase();
+        int ID = 0;
+        if (!isTableEmpty(db, TXN_TABLE_NAME, TXN_COL_1)) {
+            Cursor result = db.rawQuery("SELECT " + TXN_COL_1 + " FROM " + TXN_TABLE_NAME + " ORDER BY " + TXN_COL_1 + " DESC", null);
+            result.moveToFirst();
+            ID = result.getInt(0);
+        } else {
+            ID = 0;
+        }
+        return ID;
+    }
+
+    public void insertTransaction(String reservationId, String accountId) {
+        ContentValues transValues = new ContentValues();
+        transValues.put(TXN_COL_2, reservationId);
+        transValues.put(TXN_COL_3, accountId);
+
+        db.insert(TXN_TABLE_NAME, null, transValues);
+    }
 }
