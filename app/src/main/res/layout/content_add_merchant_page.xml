@@ -15,11 +15,12 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_alignParentStart="true"
         android:layout_marginTop="80dp"
         android:id="@+id/linearLayout"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_alignParentEnd="false">
 
         <TextView
             style="@style/AppTheme.Text"
@@ -27,14 +28,14 @@
             android:layout_height="wrap_content"
             android:text="@string/merchant_name"
             android:id="@+id/merchantTextView"
-            android:layout_weight="0.06" />
+            android:layout_weight="0.27" />
 
         <EditText
             style="@style/AppTheme.EditText"
-            android:layout_width="wrap_content"
+            android:layout_width="207dp"
             android:layout_height="27dp"
             android:id="@+id/merchantName"
-            android:layout_weight="0.79" />
+            android:layout_weight="0.68" />
 
     </LinearLayout>
     <!-- Amount-->
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:text="@string/amount"
             android:id="@+id/merchant_AmountTextView"
-            android:layout_weight="0.33" />
+            android:layout_weight="0.11" />
 
         <EditText
             style="@style/AppTheme.EditText"
@@ -61,15 +62,7 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/merchantAmount"
-            android:layout_weight="0.68" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/merchant_currency"
-            android:entries="@array/merchant_currency"
-            android:spinnerMode="dropdown"
-            android:focusable="false" />
+            android:layout_weight="0.32" />
 
     </LinearLayout>
     <!-- Month-->
