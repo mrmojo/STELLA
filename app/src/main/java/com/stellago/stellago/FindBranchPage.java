@@ -168,6 +168,7 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
 
         LatLng origin = mCurrLocationMarker.getPosition();
         LatLng destination = new LatLng(branchLatitude,branchLongitude);
+        mMap.addMarker(new MarkerOptions().position(destination).title("Desination"));
 
         // Getting URL to the Google Directions API
         String url = getUrl(origin, destination);
@@ -177,7 +178,7 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
         FetchUrl.execute(url);
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(19));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
     }
 
@@ -283,11 +284,13 @@ public class FindBranchPage extends FragmentActivity implements OnMapReadyCallba
         // Destination of route
         String str_dest = "destination=" + destination.latitude + "," + destination.longitude;
 
+        String waypoint = "mode=walking";
+
         // Sensor enabled
         String sensor = "sensor=false";
 
         // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor;
+        String parameters = str_origin + "&" + str_dest + "&" + waypoint + "&" + sensor;
 
         // Output format
         String output = "json";
