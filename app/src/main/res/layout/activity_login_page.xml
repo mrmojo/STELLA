@@ -59,14 +59,14 @@
             android:id="@+id/email"
             android:layout_width="317dp"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true"
             android:autoText="false"
             android:textIsSelectable="false"
             android:layout_weight="0.14"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:text="able@able" />
 
         <Space
             android:layout_width="match_parent"
@@ -95,7 +95,6 @@
             android:id="@+id/password"
             android:layout_width="317dp"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
             android:imeActionId="@+id/login"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
@@ -104,7 +103,8 @@
             android:allowUndo="false"
             android:layout_gravity="center"
             android:layout_weight="0.14"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:text="qwerty" />
 
         <Button
             style="@style/AppTheme.Button"

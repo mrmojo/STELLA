@@ -52,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             BRANCH_COL_2 + " REAL," +
             BRANCH_COL_3 + " REAL," +
             BRANCH_COL_4 + " TEXT," +
-            BRANCH_COL_5 + " INT" +
+            BRANCH_COL_5 + " INT," +
             BRANCH_COL_6 + " REAL" +
             ")";
 
@@ -74,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase newConn;
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 8);
+        super(context, DATABASE_NAME, null, 15);
     }
 
     @Override

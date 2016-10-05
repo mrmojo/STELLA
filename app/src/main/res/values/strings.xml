@@ -89,4 +89,10 @@
 
     <string name="check_directions">Check Directions</string>
 
+    <string name="account_id">Account ID: </string>
+    <string name="cheque_book_type">Cheque Book Type: </string>
+    <string name="number_of_leaves">Number of Leaves: </string>
+    <string name="enter_account_id">Enter Account ID</string>
+    <string name="enter_number_of_leaves">Enter Number of Leaves</string>
+
 </resources>

@@ -86,7 +86,8 @@
             android:name="com.billmastervr.viewBillByMonths"
             android:label="@string/title_activity_view_bill_by_months"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ConfirmationPage"></activity>
+        <activity android:name=".ConfirmationPage" />
+        <activity android:name=".OrderChequeBookPage"></activity>
     </application>
 
 </manifest>
