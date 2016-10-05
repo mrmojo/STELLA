@@ -94,7 +94,7 @@ public class DepositPage extends AppCompatActivity {
                 boolean isSafestChecked = safest.isChecked();
                 if (isNearestChecked && isSafestChecked) {
                     List<Branch> sortedByDistanceAndRate = sortByDistanceAndRate();
-                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sortedByDistanceAndRate);
+                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), R.layout.spinner_item, sortedByDistanceAndRate);
                     dropdown.setAdapter(adapterSorted);
                 } else if (isNearestChecked) {
                     List<Branch> sortedByDistance = sortByDistance();
@@ -102,7 +102,7 @@ public class DepositPage extends AppCompatActivity {
                     dropdown.setAdapter(adapterSorted);
                 } else if (isSafestChecked) {
                     List<Branch> sortedByRate = sortByRate();
-                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sortedByRate);
+                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), R.layout.spinner_item, sortedByRate);
                     dropdown.setAdapter(adapterSorted);
                 }
             }
@@ -115,15 +115,15 @@ public class DepositPage extends AppCompatActivity {
                 boolean isSafestChecked = safest.isChecked();
                 if (isNearestChecked && isSafestChecked) {
                     List<Branch> sortedByDistanceAndRate = sortByDistanceAndRate();
-                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sortedByDistanceAndRate);
+                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), R.layout.spinner_item, sortedByDistanceAndRate);
                     dropdown.setAdapter(adapterSorted);
                 } else if (isNearestChecked) {
                     List<Branch> sortedByDistance = sortByDistance();
-                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sortedByDistance);
+                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), R.layout.spinner_item, sortedByDistance);
                     dropdown.setAdapter(adapterSorted);
                 } else if (isSafestChecked) {
                     List<Branch> sortedByRate = sortByRate();
-                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sortedByRate);
+                    ArrayAdapter<Branch> adapterSorted = new ArrayAdapter<Branch>(getApplicationContext(), R.layout.spinner_item, sortedByRate);
                     dropdown.setAdapter(adapterSorted);
                 }
             }
