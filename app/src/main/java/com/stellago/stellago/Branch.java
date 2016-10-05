@@ -13,13 +13,15 @@ public class Branch implements Parcelable {
     private double branchLongitude;
     private String branchName;
     private int branchRate;
+    private double branchUserRate;
 
-    public Branch(int branchID, double branchLatitude, double branchLongitude, String branchName, int branchRate) {
+    public Branch(int branchID, double branchLatitude, double branchLongitude, String branchName, int branchRate, double branchUserRate) {
         this.branchID = branchID;
         this.branchLatitude = branchLatitude;
         this.branchLongitude = branchLongitude;
         this.branchName = branchName;
         this.branchRate = branchRate;
+        this.branchUserRate = branchUserRate;
     }
 
     public int getBranchID() {
@@ -46,6 +48,14 @@ public class Branch implements Parcelable {
         this.branchLongitude = branchLongitude;
     }
 
+    public double getBranchUserRate() {
+        return branchUserRate;
+    }
+
+    public void setBranchUserRate(double branchUserRate) {
+        this.branchUserRate = branchUserRate;
+    }
+
     public String getBranchName() {
         return branchName;
     }
@@ -62,13 +72,13 @@ public class Branch implements Parcelable {
         this.branchRate = branchRate;
     }
 
-    public String getBranchRateString() {
-        return Integer.toString(this.branchRate);
+    public double getBranchRateAverage() {
+        return (getBranchRate() + getBranchUserRate())/2;
     }
 
     @Override
     public String toString() {
-        return this.branchName.concat(" Rate = ").concat(getBranchRateString()); // Value to be displayed in the Spinner
+        return this.branchName.concat(" Rate = ").concat(Double.toString(getBranchRateAverage())); // Value to be displayed in the Spinner
     }
 
     @Override
@@ -83,6 +93,7 @@ public class Branch implements Parcelable {
         dest.writeDouble(getBranchLongitude());
         dest.writeString(getBranchName());
         dest.writeInt(getBranchRate());
+        dest.writeDouble(getBranchUserRate());
     }
 
     // Creator
@@ -103,6 +114,7 @@ public class Branch implements Parcelable {
         setBranchLongitude(in.readDouble());
         setBranchName(in.readString());
         setBranchRate(in.readInt());
+        setBranchUserRate(in.readDouble());
     }
 
 }
