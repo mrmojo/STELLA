@@ -333,7 +333,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = getAllData(BRANCH_TABLE_NAME);
         cursor.moveToFirst();
         do {
-            Branch retrievedBranch = new Branch(cursor.getInt(0), cursor.getDouble(1), cursor.getDouble(2), cursor.getString(3), cursor.getInt(4));
+            Branch retrievedBranch = new Branch(cursor.getInt(0), cursor.getDouble(1), cursor.getDouble(2), cursor.getString(3), cursor.getInt(4), cursor.getDouble(5));
             branchList.add(retrievedBranch);
         } while(cursor.moveToNext());
 
