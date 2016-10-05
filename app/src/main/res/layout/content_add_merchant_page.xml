@@ -53,16 +53,16 @@
             android:layout_height="wrap_content"
             android:text="@string/amount"
             android:id="@+id/merchant_AmountTextView"
-            android:layout_weight="0.11" />
+            android:layout_weight="0.18" />
 
         <EditText
             style="@style/AppTheme.EditText"
-            android:layout_width="wrap_content"
+            android:layout_width="207dp"
             android:layout_height="27dp"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/merchantAmount"
-            android:layout_weight="0.32" />
+            android:layout_weight="0.30" />
 
     </LinearLayout>
     <!-- Month-->
